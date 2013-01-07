@@ -1,0 +1,7 @@
+div#canvas_container
+{
+	width: 900px;
+	height: 800px;
+	margin: auto;
+	text-align: center;
+}
