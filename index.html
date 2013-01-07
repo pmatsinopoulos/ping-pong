@@ -150,8 +150,13 @@
 				   var ballDirection = calculateBallDirection();
 				   ball.position.x += ballDirection.xunits;
 				   ball.position.y += ballDirection.yunits;
-				
-				   if ( ball.position.x + ball.radius >= tables[1].position.x &&
+				   if (ball.position.x + ball.radius < 0 || ball.position.x - ball.radius > canvas.width) {
+					   // this is a game over situation
+						clearInterval(updateBallTimerId);
+						canvas.removeEventListener('mousemove', onMouseMove, true);
+						displayGameOver();
+						return;
+				   } else if ( ball.position.x + ball.radius >= tables[1].position.x &&
 						ball.position.y + ball.radius >= tables[1].position.y && ball.position.y - ball.radius <= tables[1].position.y + tables[1].size.height        
 						||
 						ball.position.x - ball.radius <= tables[0].position.x + tables[0].size.width &&
@@ -160,13 +165,7 @@
 						ball.angle = 180 - ball.angle;
 					} else if (ball.position.y + ball.radius > canvas.height || ball.position.y - ball.radius <= 0) {
 						ball.angle = 360 - ball.angle;
-					} else if (ball.position.x + ball.radius < 0 || ball.position.x - ball.radius > canvas.width) {
-						// this is a game over situation
-						clearInterval(updateBallTimerId);
-						canvas.removeEventListener('mousemove', onMouseMove, true);
-						displayGameOver();
-						return;
-					}
+					} 
 					drawScreen();  				    						
 				} // updateBall()
 					
