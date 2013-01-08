@@ -41,5 +41,7 @@ Next version will have more features, like:
 6.1. Player against computer.
 6.2. Players can be on their own keyboard/mouse and play against each other over the internet.
 
-
+TESTING
+=======
+Maybe, you will find interesting that I used Jasmine to test / spec parts of the functionality of the game. Open the page <code>SpecRunner.html</code> and see what happens.
 
