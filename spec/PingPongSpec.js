@@ -1,4 +1,23 @@
 describe("ping-pong Application", function() {
+	describe("Debugger object", function() {		
+		var dbg = new PingPong.Debugger()
+		
+		it("should create a debugger object that responds to log message", function(){
+			spyOn(console, 'log');
+			dbg.log('message');
+			
+			expect(console.log).toHaveBeenCalled();			
+		});
+		
+		it("should swallow any exception thrown by log function", function() {
+			spyOn(console, 'log').andCallFake(function(){
+				throw "EXCEPTION: debugger log exception";
+			});
+			
+			dbg.log('message');
+		});
+	});
+	
 	describe("Position object", function() {
 		it("should create a position object", function() {
 			var position = new PingPong.Position(5, 15);
@@ -43,6 +62,16 @@ describe("ping-pong Application", function() {
 			expect(ballDirection.radians).toBe(80);
 			expect(ballDirection.xunits).toBe(5);
 			expect(ballDirection.yunits).toBe(15);
+		});
+	});
+	
+	describe("canvasApp function", function(){		
+		it("should return false if canvas is not supported", function(){
+			Modernizr['canvas'] = false;
+			
+			expect(PingPong.canvasApp()).toBe(false);
+			
+			Modernizr['canvas'] = true;
 		});
 	});
 });
